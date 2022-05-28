@@ -14,6 +14,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
+/**
+ * Persist Payment before state change in state machine.
+ */
 @RequiredArgsConstructor
 @Component
 public class PaymentStateInterceptor
@@ -25,15 +28,16 @@ public class PaymentStateInterceptor
     public void preStateChange(State<PaymentState, PaymentEvent> state,
                                Message<PaymentEvent> message,
                                Transition<PaymentState, PaymentEvent> transition,
-                               StateMachine<PaymentState, PaymentEvent> stateMachine) {
+                               StateMachine<PaymentState, PaymentEvent> stateMachine,
+                               StateMachine<PaymentState, PaymentEvent> rootStateMachine) {
 
-        Optional.ofNullable(message).ifPresent(msg ->
-                Optional.ofNullable((Long) msg.getHeaders().getOrDefault("payment_id", -1L))
+                Optional.ofNullable(message).flatMap(
+                        msg -> Optional.ofNullable((Long) msg.getHeaders()
+                                .getOrDefault("payment_id", -1L)))
                         .ifPresent(paymentId -> {
-                            Payment payment = paymentRepository.getOne(paymentId);
-                            payment.setPaymentState(state.getId());
-                            paymentRepository.save(payment);
-                        }));
-
+                    Payment payment = paymentRepository.getReferenceById(paymentId);
+                    payment.setPaymentState(state.getId());
+                    paymentRepository.save(payment);
+                });
     }
 }

@@ -1,5 +1,8 @@
 package org.knoldus.ssm.domain;
 
+/**
+ * events can transition over state machine.
+ */
 public enum PaymentEvent {
 
     PRE_AUTHORIZE,

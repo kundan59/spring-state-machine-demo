@@ -16,7 +16,6 @@ import java.math.BigDecimal;
 public class Payment {
 
     @Id
-    @GeneratedValue
     private Long id;
 
     @Enumerated(EnumType.STRING)
