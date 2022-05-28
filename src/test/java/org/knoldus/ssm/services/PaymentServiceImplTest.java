@@ -43,7 +43,7 @@ class PaymentServiceImplTest {
         StateMachine<PaymentState, PaymentEvent> preAuth
                 = paymentService.preAuth(charge);
 
-        Payment preAthorizePayment = paymentRepository.getOne(savedPayment.getId());
+        Payment preAthorizePayment = paymentRepository.findById(savedPayment.getId()).get();
 
         Assertions.assertEquals(PaymentState.PRE_AUTH, preAuth.getState().getId());
         Assertions.assertEquals(PaymentState.PRE_AUTH, preAthorizePayment.getPaymentState());
@@ -67,7 +67,7 @@ class PaymentServiceImplTest {
         StateMachine<PaymentState, PaymentEvent> preAuth
                 = paymentService.preAuth(charge);
 
-        Payment preAthorizePayment = paymentRepository.getOne(savedPayment.getId());
+        Payment preAthorizePayment = paymentRepository.findById(savedPayment.getId()).get();
 
         Assertions.assertEquals(PaymentState.PRE_AUTH_ERROR, preAuth.getState().getId());
         Assertions.assertEquals(PaymentState.PRE_AUTH_ERROR, preAthorizePayment.getPaymentState());
@@ -100,7 +100,7 @@ class PaymentServiceImplTest {
                 Payment.builder().amount(charge.getAvailableAmount())
                         .id(charge.getId()).build();
         StateMachine<PaymentState, PaymentEvent> authorize = paymentService.authorizePayment(charge);
-        Payment authorizePayment = paymentRepository.getOne(savedPayment.getId());
+        Payment authorizePayment = paymentRepository.findById(savedPayment.getId()).get();
 
         Assertions.assertEquals(PaymentState.AUTH, authorize.getState().getId());
         Assertions.assertEquals(PaymentState.AUTH, authorizePayment.getPaymentState());
@@ -133,7 +133,7 @@ class PaymentServiceImplTest {
                 Payment.builder().amount(charge.getAvailableAmount())
                         .id(charge.getId()).build();
         StateMachine<PaymentState, PaymentEvent> authorize = paymentService.authorizePayment(charge);
-        Payment authorizePayment = paymentRepository.getOne(savedPayment.getId());
+        Payment authorizePayment = paymentRepository.findById(savedPayment.getId()).get();
 
         Assertions.assertEquals(PaymentState.AUTH_ERROR, authorize.getState().getId());
         Assertions.assertEquals(PaymentState.AUTH_ERROR, authorizePayment.getPaymentState());

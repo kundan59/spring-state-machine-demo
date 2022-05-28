@@ -116,7 +116,7 @@ public class PaymentServiceImpl implements PaymentService {
      */
     private StateMachine<PaymentState, PaymentEvent> build(Long paymentId) {
 
-        Payment payment = paymentRepository.getOne(paymentId);
+        Payment payment = paymentRepository.findById(paymentId).orElseThrow();
         StateMachine<PaymentState, PaymentEvent> stateMachine
                 = stateMachineFactory.getStateMachine(Long.toString(payment.getId()));
 

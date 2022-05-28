@@ -1,7 +1,7 @@
 package org.knoldus.ssm.repository;
 
 import org.knoldus.ssm.domain.Payment;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.cassandra.repository.CassandraRepository;
 
-public interface PaymentRepository extends JpaRepository<Payment, Long> {
+public interface PaymentRepository extends CassandraRepository<Payment, Long> {
 }

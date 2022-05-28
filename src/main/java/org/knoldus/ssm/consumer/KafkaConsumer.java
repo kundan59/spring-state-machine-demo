@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.knoldus.ssm.constant.ApplicationConstant;
 import org.knoldus.ssm.dto.Charge;
 import org.knoldus.ssm.services.ExecuteAuthorization;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
@@ -21,7 +22,10 @@ public class KafkaConsumer {
 
     private final ExecuteAuthorization executeAuthorization;
 
-    @KafkaListener(groupId = ApplicationConstant.GROUP_ID_JSON, topics = ApplicationConstant.TOPIC_NAME, containerFactory = ApplicationConstant.KAFKA_LISTENER_CONTAINER_FACTORY)
+    @KafkaListener(
+            groupId = ApplicationConstant.GROUP_ID_JSON,
+            topics = ApplicationConstant.TOPIC_NAME,
+            containerFactory = ApplicationConstant.KAFKA_LISTENER_CONTAINER_FACTORY)
     public void receivedMessage(byte[] message) throws JsonProcessingException {
 
         String ChargeEvent = new String(message, StandardCharsets.UTF_8);

@@ -35,7 +35,7 @@ public class PaymentStateInterceptor
                         msg -> Optional.ofNullable((Long) msg.getHeaders()
                                 .getOrDefault("payment_id", -1L)))
                         .ifPresent(paymentId -> {
-                    Payment payment = paymentRepository.getReferenceById(paymentId);
+                    Payment payment = paymentRepository.findById(paymentId).orElseThrow();
                     payment.setPaymentState(state.getId());
                     paymentRepository.save(payment);
                 });

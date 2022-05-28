@@ -4,22 +4,27 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.cassandra.core.mapping.CassandraType;
+import org.springframework.data.cassandra.core.mapping.PrimaryKey;
+import org.springframework.data.cassandra.core.mapping.Table;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
 
-@Data
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity
+@Table("payment")
+@Data
 public class Payment {
 
-    @Id
+    @PrimaryKey
+    @CassandraType(type = CassandraType.Name.BIGINT)
     private Long id;
 
-    @Enumerated(EnumType.STRING)
+    @CassandraType(type = CassandraType.Name.TEXT)
     private PaymentState paymentState;
 
+    @CassandraType(type = CassandraType.Name.DECIMAL)
     private BigDecimal amount;
 }
