@@ -31,7 +31,7 @@ AUTH_DECLINE - Call processing for declining the payment authorization.
 
 #### State machine -
 
-![](/home/knoldus/Downloads/payment.drawio.png)
+![payment drawio](https://user-images.githubusercontent.com/25796983/170922853-ff186d8d-83c3-43bd-a0a3-c7f70aca60e7.png)
 
 
 ### How to Run- 
