@@ -64,8 +64,8 @@ kafkacat -P -b localhost:9092 -t payment-authorize  src/test/resources/check-out
 #### On hotel check-in event -
 
 Check logs Pre authorization will be done if criteria met i.e, available amount is grater then hold amount.
- - state will change from NEW to PRE_auth, if pre-auth approved.
- - state will change from NEW to PRE_auth_ERROR, if pre-auth declined.
+ - state will change from NEW to PRE_AUTH, if pre-auth approved.
+ - state will change from NEW to PRE_AUTH_ERROR, if pre-auth declined.
 
  ##### check the state persist in cassandra -
    ```
@@ -82,8 +82,8 @@ Check logs Pre authorization will be done if criteria met i.e, available amount 
 #### On hotel check-out event -
 
 Check logs authorization will be done if criteria met i.e, pre-authorization already done for that id as well authorization true in event.
-- state will change from PRE_auth to AUTH, if auth approved.
-- state will change from PRE_auth_ERROR to AUTH_ERROR, if auth declined.
+- state will change from PRE_AUTH to AUTH, if auth approved.
+- state will change from PRE_AUTH to AUTH_ERROR, if auth declined.
 
 ##### check the state persist in cassandra -
    ```
